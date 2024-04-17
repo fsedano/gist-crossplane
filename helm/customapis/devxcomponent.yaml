@@ -1,0 +1,7 @@
+apiVersion: devx.cisco.com/v1alpha1
+kind: Component
+metadata:
+  name: comp1
+spec:
+  owner: fsedanoc
+  helmName: kafka

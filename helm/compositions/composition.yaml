@@ -1,0 +1,32 @@
+
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: component-ws
+spec:
+  resources:
+    - name: component-ws-res
+      base:
+        apiVersion: helm.crossplane.io/v1beta1
+        kind: Release
+        spec:
+          providerConfigRef:
+            name: helm-provider
+          forProvider:
+            namespace: demo1
+            chart:
+              name: wordpress
+              repository: https://charts.bitnami.com/bitnami
+#              version: 15.2.5 ## To use development versions, set ">0.0.0-0"
+      patches:
+        - fromFieldPath: "spec.helmName"
+          toFieldPath: "spec.forProvider.chart.name"
+          transforms:
+            - type: map
+              map: 
+                wordpress: "wordpress"
+                kafka: "kafka"
+
+  compositeTypeRef:
+    apiVersion: devx.cisco.com/v1alpha1
+    kind: Component

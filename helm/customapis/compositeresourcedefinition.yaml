@@ -1,0 +1,30 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: components.devx.cisco.com
+spec:
+  group: devx.cisco.com
+  names:
+    kind: Component
+    plural: components
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              owner:
+                type: string
+              helmName:
+                type: string
+            required:
+              - owner
+              - helmName
+    served: true
+    referenceable: true
+  claimNames:
+    kind: ComponentClaim
+    plural: componentclaims
